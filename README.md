@@ -1,4 +1,4 @@
-# Chahine Chahine — Founder Portfolio
+ # Chahine Chahine — Founder Portfolio
 
 A single-page portfolio for career fairs and outsourcing conversations. Plain HTML/CSS/JS, no build step.
 
