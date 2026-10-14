@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Chahine Chahine — Business Card</title>
+<!--
+  Print spec: 85 × 55 mm trim, 3 mm bleed on every side (91 × 61 mm canvas).
+  Keep text inside the 4 mm safe zone (dashed guide, hidden in print).
+-->
+<style>
+  @page { size: 91mm 61mm; margin: 0; }
+  :root {
+    --yellow: #F9C049;    /* sampled from the portrait backdrop */
+    --yellow-soft: #FBD27A;
+    --ink: #1C1712;
+    --ink-2: #3A322A;
+    --cream: #FFF8EC;
+    --terracotta: #D9653B;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: #E9E2D8; }
+  body { font-family: "Inter", "Liberation Sans", sans-serif; color: var(--ink); -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  body.export .sheet { padding: 0; gap: 0; display: block; }
+  .sheet { display: flex; flex-wrap: wrap; gap: 10mm; padding: 10mm; }
+  @media print { .sheet { padding: 0; gap: 0; display: block; } .side { page-break-after: always; } .guide { display: none; } }
+
+  .side { position: relative; width: 91mm; height: 61mm; overflow: hidden; }
+  .guide { position: absolute; inset: 7mm; border: .2mm dashed rgba(255, 0, 80, .45); pointer-events: none; z-index: 9; }
+  .guide::before { content: ""; position: absolute; inset: -4mm; border: .2mm solid rgba(0, 140, 255, .45); }
+  body.no-guides .guide { display: none; }
+
+  .mono { font-family: "DejaVu Sans Mono", monospace; letter-spacing: .02em; }
+
+  /* ================= FRONT ================= */
+  .front { background: var(--yellow); }
+  .front__photo {
+    position: absolute; right: -4mm; bottom: 0; height: 61mm; width: 52mm;
+    background: url("../assets/chahine.jpg") 58% 40% / cover no-repeat;
+  }
+  /* soft sun disc echoing the portrait */
+  .front__sun { position: absolute; right: 9mm; top: 9mm; width: 34mm; height: 34mm; border-radius: 50%; background: var(--yellow-soft); }
+  .front__copy { position: absolute; left: 7mm; top: 7mm; bottom: 7mm; width: 42mm; display: flex; flex-direction: column; }
+  .front__status {
+    display: inline-flex; align-items: center; gap: 1.3mm; width: fit-content;
+    background: var(--ink); color: var(--yellow); border-radius: 10mm; padding: .9mm 2.2mm;
+    font-size: 4.6pt; font-weight: 600;
+  }
+  .front__status i { width: 1.4mm; height: 1.4mm; border-radius: 50%; background: #7BD88F; box-shadow: 0 0 0 .5mm rgba(123, 216, 143, .3); }
+  .front__name { font-family: "Inter Display", "Inter", sans-serif; font-weight: 800; font-size: 17pt; line-height: .92; letter-spacing: -.035em; margin-top: 4mm; }
+  .front__role { font-size: 6pt; font-weight: 600; margin-top: 1.6mm; }
+  .front__role b { font-weight: 800; }
+  .front__line { margin-top: auto; font-size: 6.4pt; line-height: 1.3; font-weight: 500; color: var(--ink-2); max-width: 38mm; }
+  .front__line em { font-style: normal; font-weight: 800; color: var(--ink); background: linear-gradient(transparent 58%, var(--cream) 58%); }
+  .front__flip { margin-top: 2.4mm; font-size: 4.8pt; font-weight: 700; display: flex; align-items: center; gap: 1.2mm; }
+  .front__flip svg { width: 4mm; height: 4mm; }
+
+  /* ================= BACK ================= */
+  .back { background: var(--ink); color: var(--cream); }
+  .back__inner { position: absolute; inset: 7mm; display: flex; flex-direction: column; }
+  .back__q { font-family: "Inter Display", "Inter", sans-serif; font-weight: 800; font-size: 10.4pt; line-height: 1; letter-spacing: -.02em; }
+  .back__q span { color: var(--yellow); }
+  .back__hint { font-size: 4.8pt; color: #BDB2A4; margin-top: 1.2mm; }
+  .paths { display: grid; grid-template-columns: 1fr 1fr; gap: 2.6mm; margin-top: 2.6mm; flex: 1; }
+  .path { border-radius: 2.6mm; padding: 2mm 2mm 1.6mm; align-content: center; display: grid; grid-template-columns: 17mm 1fr; gap: 2mm; align-items: center; }
+  .path--a { background: var(--yellow); color: var(--ink); }
+  .path--b { background: var(--cream); color: var(--ink); }
+  .path__qr { width: 17mm; height: 17mm; background: #fff; border-radius: 1.4mm; padding: 1.3mm; }
+  .path__qr img { width: 100%; height: 100%; display: block; }
+  .path__key { display: inline-grid; place-items: center; width: 3.6mm; height: 3.6mm; border-radius: .8mm; background: var(--ink); color: var(--cream); font-size: 5pt; font-weight: 800; }
+  .path__title { font-weight: 800; font-size: 6.6pt; line-height: 1.08; margin-top: 1.2mm; letter-spacing: -.01em; }
+  .path__url { grid-column: 1 / -1; font-size: 4.4pt; opacity: .8; white-space: nowrap; margin-top: -.6mm; }
+  .back__foot { display: flex; justify-content: space-between; align-items: center; margin-top: 2.4mm; font-size: 4.6pt; color: #BDB2A4; }
+  .back__foot b { color: var(--cream); font-weight: 700; }
+  .back__brand { display: flex; align-items: center; gap: 1.2mm; color: var(--cream); font-weight: 700; }
+  .back__brand i { width: 2.2mm; height: 2.2mm; border-radius: .6mm; background: var(--terracotta); }
+  /* the doodle strokes from the portrait, reused as a motif */
+  .doodle { position: absolute; width: 8mm; height: 8mm; }
+  .doodle line { stroke-linecap: round; }
+  .back .doodle { right: 7.5mm; top: 5.5mm; }
+</style>
+</head>
+<body>
+<div class="sheet">
+
+  <!-- FRONT -->
+  <section class="side front" aria-label="Card front">
+    <div class="front__sun"></div>
+    <div class="front__photo" role="img" aria-label="Portrait of Chahine Chahine"></div>
+    <div class="front__copy">
+      <span class="front__status"><i></i> Open to new builds</span>
+      <h1 class="front__name">Chahine<br>Chahine</h1>
+      <p class="front__role">Founder · <b>KreativeBrains</b></p>
+      <p class="front__line">I build the systems your team <em>doesn't have time</em> to build.</p>
+      <p class="front__flip">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12a8 8 0 0 1 14-5.3M20 4v4h-4M20 12a8 8 0 0 1-14 5.3M4 20v-4h4"/></svg>
+        Flip me — pick your path
+      </p>
+    </div>
+    <div class="guide"></div>
+  </section>
+
+  <!-- BACK -->
+  <section class="side back" aria-label="Card back">
+    <svg class="doodle" viewBox="0 0 24 24" aria-hidden="true">
+      <line x1="6" y1="10" x2="13" y2="12.5" stroke="#F9C049" stroke-width="1.8"/>
+      <line x1="10" y1="3.5" x2="15" y2="8" stroke="#F9C049" stroke-width="1.8"/>
+      <line x1="6.5" y1="17" x2="12.5" y2="15.5" stroke="#F9C049" stroke-width="1.8"/>
+    </svg>
+    <div class="back__inner">
+      <h2 class="back__q">Why are you holding <span>this card?</span></h2>
+      <p class="back__hint">Pick an answer. Scan it with your camera.</p>
+
+      <div class="paths">
+        <div class="path path--a">
+          <div class="path__qr"><img src="qr-collab.svg" alt="QR code to chahine.kreativebrains.com"></div>
+          <div>
+            <span class="path__key mono">A</span>
+            <p class="path__title">I have a project in mind</p>
+          </div>
+          <p class="path__url mono">chahine.kreativebrains.com →</p>
+        </div>
+        <div class="path path--b">
+          <div class="path__qr"><img src="qr-work.svg" alt="QR code to kreativebrains.com"></div>
+          <div>
+            <span class="path__key mono">B</span>
+            <p class="path__title">Show me what you've built</p>
+          </div>
+          <p class="path__url mono">kreativebrains.com →</p>
+        </div>
+      </div>
+
+      <div class="back__foot">
+        <span>Both? <b>Come say hi at the booth.</b></span>
+        <span class="back__brand"><i></i>KreativeBrains</span>
+      </div>
+    </div>
+    <div class="guide"></div>
+  </section>
+
+</div>
+</body>
+</html>

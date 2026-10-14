@@ -272,7 +272,7 @@ p { margin: 0 0 1em; }
 
 /* ===== About ===== */
 .about { display: grid; grid-template-columns: 340px 1fr; gap: 64px; align-items: center; }
-.about__photo { aspect-ratio: 4/5; border-radius: 28px; background: radial-gradient(circle at 30% 20%, #F2C9B4, var(--accent) 70%); display: grid; place-items: center; color: rgba(255, 255, 255, .9); font: 600 4rem var(--font-head); box-shadow: var(--shadow); overflow: hidden; }
+.about__photo { aspect-ratio: 1; border-radius: 28px; background: radial-gradient(circle at 30% 20%, #F2C9B4, var(--accent) 70%); display: grid; place-items: center; color: rgba(255, 255, 255, .9); font: 600 4rem var(--font-head); box-shadow: var(--shadow); overflow: hidden; }
 .about__photo img { width: 100%; height: 100%; object-fit: cover; }
 .about__text p { color: var(--ink-2); max-width: 38em; }
 .link { font-weight: 600; color: var(--accent-ink); }
